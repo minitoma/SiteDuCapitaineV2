@@ -1,0 +1,78 @@
+{% load static %}
+
+<html>
+    <head>
+	<!-- Chargement du CSS-->
+  {% load bootstrap4 %}
+	{% bootstrap_css %}
+  {% bootstrap_javascript jquery='full' %}
+	{% bootstrap_messages %}
+
+
+      <title>{% block title %}Le site du Capitaine Minitoma{% endblock %}</title>
+    	<link rel="stylesheet" type="text/css" href="{% static "css/general.css" %}">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Nunito" />
+      <script src="{% static 'js/accueil.js' %}"></script>
+    </head>
+    <body>
+      {% if request.get_full_path == "/" %}
+      <div class="middle">
+        <img class="img-fluid" src="{% static "media/pirate.png" %}" alt="Pirate">
+        <h1>COMING SOON</h1>
+        <h2 class="attention rounded">
+          <span class="fas fa-exclamation-triangle"></span>
+          Ce site est encore en construction
+          <span class="fas fa-exclamation-triangle"></span>
+        </h2>
+        <h2>Vous pouvez appercevoir ici une première version "test" du site du Capitaine Minitoma</h2>
+        <div class="progress">
+          <div class="progress-bar bg-dark progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="41.32456" aria-valuemin="0" aria-valuemax="100" style="width:41%">
+            41.32456%
+          </div>
+        </div>
+      </div>
+      {% endif %}
+
+
+    	<nav id="nav_go" class="border border-secondary border-right-0 border-left-0 navbar navbar-togleable-md navbar-expand-sm navbar-dark sticky-top">
+        <a class="navbar-brand" href="/">
+          <img id="logo" class="img-responsive" src="{% static "media/pirateNoir.png" %}" alt="Logo" style="width:150px;">
+          Le site du Capitaine Minitoma
+        </a>
+
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              {% if request.get_full_path == "/" %}
+                <a class="nav-link" href="javascript:goTo();">Accueil</a>
+              {% else %}
+                <a class="nav-link" href="/">Accueil</a>
+              {% endif %}
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/projets">Projets</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+			{% block content %}
+      {% endblock %}
+
+        	<footer>
+        	</footer>
+		</div>
+
+        {% block javascript %}
+        {% endblock %}
+
+        {% block css %}
+        {% endblock %}
+	<!-- Chargement du javascript -->
+    </body>
+</html>

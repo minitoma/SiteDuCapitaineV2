@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="presentation border border-light border-right-0 border-left-0 border-top-0">
+  <h1>Liste de mes projets</h1>
+  <p>Voici une page rassemblant l'ensemble des projets auxquels j'ai de près ou de loin participé.</p>
+</div>
+  {% for projet in projets reversed %}
+  <div class="projet">
+      <div class="titreProjet">
+        <h2>
+          <a class="titreProjet collapsed" data-toggle="collapse" href="#projet{{ projet.id }}">{{ projet.titre }}</a>
+          <a href="#projet{{ projet.id }}" type="button" data-toggle="collapse" class="collapsed icon" aria-expanded="false">
+          </a>
+        </h2>
+      </div>
+      <div class="date">
+        <p>Date de publication: {{ projet.published_date }}</p>
+      </div>
+      <div id="projet{{ projet.id }}" class="collapse">
+        <p class="description">{{ projet.description }}</p>
+        <a href="{{ projet.url }}">LIEN</a>
+      </div>
+      <!-- Caroussel ici -->
+      <div id="carousel{{ projet.id }}" class="carousel slide" data-ride="carousel">
+        <ul class="carousel-indicators">
+          {% for image in projet.images.all %}
+          <li data-target="#carousel{{ projet.id }}" data-slide-to="{{ image.id }}"></li>
+          {% endfor %}
+        </ul>
+
+        <div class="carousel-inner">
+          {% for image in projet.images.all %}
+            {% if forloop.first %}
+              <div class="carousel-item active">
+            {% else %}
+              <div class="carousel-item">
+            {% endif %}
+	    <img src="/media/{{ image.image }}">
+          </div>
+          {% endfor %}
+        </div>
+
+        <a class="carousel-control-prev" href="#carousel{{ projet.id }}" data-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#carousel{{ projet.id }}" data-slide="next">
+          <span class="carousel-control-next-icon"></span>
+        </a>
+      </div>
+
+      <hr />
+  </div>
+
+  {% endfor %}
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="presentation border border-light border-right-0 border-left-0 border-top-0">
+    <h1>Bienvenue sur le site du Capitaine Minitoma</h1>
+    <div>
+        <img class="img-fluid logo" src="{% static "media/youtube.png" %}" alt="Youtube">
+        <span>Vous pouvez me voir (ou plutôt m'entendre) sur Youtube : <a class="a-white" href="https://www.youtube.com/user/minitoma04">minitoma04</a></span>
+    </div>
+    <div>
+        <img class="img-fluid logo" src="{% static "media/twitch.png" %}" alt="Twitch">
+        <span>Ou alors me rejoindre directement sur Twitch : <a class="a-white" href="https://www.twitch.tv/minitoma04">minitoma04</a></span>
+    </div>
+</div>
+<div class="last_project">
+    <h2>Dernier projet ajouté</h2>
+    <div id="projet">
+        <div class="date">
+            <p>Date de publication: {{ last_project.published_date }}</p>
+        </div>
+        <h3>{{ last_project.titre }}</h3>
+
+
+        <div class="container">
+            <!-- Trigger the modal with a button -->
+            <button type="button" class="btn btn-outline-secondary btn-lg" data-toggle="modal" data-target="#myModal">Voir le projet</button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">{{ last_project.titre }}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p class="description">{{ last_project.description }}</p>
+                        </div>
+                        <!-- Carousel in the modal -->
+                        <div id="carousel{{ last_project.id }}" class="carousel slide" data-ride="carousel">
+                            <ul class="carousel-indicators">
+                                {% for image in last_project.images.all %}
+                                <li data-target="#carousel{{ last_project.id }}" data-slide-to="{{ image.id }}"></li>
+                                {% endfor %}
+                            </ul>
+
+                            <div class="carousel-inner">
+                                {% for image in last_project.images.all %}
+                                {% if forloop.first %}
+                                <div class="carousel-item active">
+                                    {% else %}
+                                    <div class="carousel-item">
+                                        {% endif %}
+                                        <img src="/media/{{ image.image }}">
+                                    </div>
+                                    {% endfor %}
+                                </div>
+
+                                <a class="carousel-control-prev" href="#carousel{{ last_project.id }}" data-slide="prev">
+                                    <span class="carousel-control-prev-icon"></span>
+                                </a>
+                                <a class="carousel-control-next" href="#carousel{{ last_project.id }}" data-slide="next">
+                                    <span class="carousel-control-next-icon"></span>
+                                </a>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary btn-lg" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <hr />
+        </div>
+    </div>
+
+    {% endblock %}

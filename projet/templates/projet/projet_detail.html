@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div id="projet">
+    {% if projet.published_date %}
+      <div class="date">
+        {{ projet.published_date }}
+      </div>
+      <p id="description">{{ projet.description }}</p>
+      <div id="description">
+      <!-- Ajouter le Modal ici ou le collapse -->
+        <p>{{ projet.description }}</p>
+      </div>
+      </div id="caroussel">
+      <!-- Caroussel ici -->
+      </div>
+  {% endblock %}
